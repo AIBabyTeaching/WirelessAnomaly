@@ -1,0 +1,22 @@
+[project]
+name = "wireless-anom"
+version = "0.1.0"
+description = "AI-driven anomaly detection for wireless networks"
+authors = [{name = "Jane Doe"}]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pandas",
+  "scikit-learn",
+  "matplotlib",
+  "pyyaml",
+  "typer",
+  "rich"
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "mkdocs", "black", "ruff", "mypy"]
+
+[project.scripts]
+wireless-anom = "wireless_anom.cli.main:app"
