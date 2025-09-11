@@ -10,13 +10,14 @@ dependencies = [
   "pandas",
   "scikit-learn",
   "matplotlib",
+  "seaborn",
   "pyyaml",
   "typer",
   "rich"
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "mkdocs", "black", "ruff", "mypy"]
+dev = ["pytest", "mkdocs", "mkdocstrings[python]", "black", "ruff", "mypy"]
 
 [project.scripts]
 wireless-anom = "wireless_anom.cli.main:app"

@@ -13,7 +13,11 @@ from .detect.isolation_forest import run_isoforest
 from .classify.models import run_classifiers
 from .viz.scatter import plot_scatter
 from .viz.distributions import plot_distributions
-from .detect.metrics import compute_tev
+from .viz.contrib import plot_tev
+from .viz.confusion import plot_confusion_matrix
+from .viz.decision import plot_decision_boundary
+from .detect.metrics import compute_tev, clustering_indices, top_anomalies
+from sklearn.neighbors import KNeighborsClassifier
 from .utils.seeds import set_seeds
 from .utils.paths import ensure_dir
 
@@ -41,22 +45,52 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
         console.print(f"TEV: {results['tev']}")
 
     iso_cfg = config["detect"]["isoforest"]
-    iso_scores, iso_flags = run_isoforest(df[config["data"]["reduced_columns"]], iso_cfg)
+    iso_scores, iso_flags = run_isoforest(
+        df[config["data"]["reduced_columns"]], iso_cfg
+    )
     results["iso_scores"] = iso_scores
     df["anomaly"] = iso_flags
     console.print(f"Anomaly rate: {iso_flags.mean():.2%}")
+    results["top_anomalies"] = top_anomalies(df, iso_scores)
+    results["cluster_metrics"] = clustering_indices(
+        df[config["data"]["reduced_columns"]],
+        df[config["data"]["label_column"]],
+    )
+    console.print(f"Clustering metrics: {results['cluster_metrics']}")
 
     if config["classify"].get("enabled", False):
-        clf_results = run_classifiers(df[config["data"]["reduced_columns"]], df[config["data"]["label_column"]], config["classify"]["models"])
+        clf_results = run_classifiers(
+            df[config["data"]["reduced_columns"]],
+            df[config["data"]["label_column"]],
+            config["classify"]["models"],
+        )
         results["classifiers"] = clf_results
-        console.print(f"Classifier accuracy: {clf_results}")
+        console.print(
+            f"Classifier accuracy: { {k: v['accuracy'] for k, v in clf_results.items()} }"
+        )
 
     if config["viz"].get("enabled", False):
         fig_dir = Path(config["paths"]["figures"])
         ensure_dir(fig_dir)
+        if config["eval"].get("compute_tev", False):
+            plot_tev(results["tev"], fig_dir / "tev")
         if config["viz"].get("scatter", False):
-            plot_scatter(df, fig_dir / "scatter.png")
+            plot_scatter(df, fig_dir / "scatter")
         if config["viz"].get("distributions", False):
-            plot_distributions(df, fig_dir / "dist.png")
+            plot_distributions(df, fig_dir / "dist")
+        if config["classify"].get("enabled", False):
+            labels = df[config["data"]["label_column"]]
+            for name, res in clf_results.items():
+                plot_confusion_matrix(res["confusion"], labels.unique(), fig_dir / f"cm_{name}")
+            first = next(iter(clf_results.values()))
+            model = first.get("model") if isinstance(first, dict) and "model" in first else KNeighborsClassifier().fit(
+                df[config["data"]["reduced_columns"]], labels
+            )
+            plot_decision_boundary(
+                model,
+                df[config["data"]["reduced_columns"]],
+                labels,
+                fig_dir / "decision",
+            )
 
     return results

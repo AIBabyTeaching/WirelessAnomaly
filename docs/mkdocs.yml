@@ -6,6 +6,9 @@ nav:
   - Pipeline: pipeline.md
   - API: api.md
   - Reproduce: reproduce.md
+  - Interpretability: interpretability.md
   - Roadmap: roadmap.md
   - Citation: citation.md
   - License: license.md
+plugins:
+  - mkdocstrings

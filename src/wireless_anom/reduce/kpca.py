@@ -1,4 +1,10 @@
-"""Kernel PCA with gamma sampling."""
+"""Kernel PCA reducer with gamma sampling.
+
+Kernel PCA projects data into a high-dimensional feature space using a kernel
+function. This implementation samples a range of kernel width (gamma)
+parameters and selects the one yielding the highest sum of eigenvalues,
+providing a heuristic for variance retention without exhaustive grid search.
+"""
 from __future__ import annotations
 import numpy as np
 import pandas as pd
@@ -6,16 +12,18 @@ from sklearn.decomposition import KernelPCA
 
 
 def sample_gammas(cfg: dict) -> np.ndarray:
+    """Sample candidate gamma values according to configuration."""
     gs = cfg["gamma_sampling"]
     if gs["strategy"] == "logspace":
         return np.logspace(gs["start_exp"], gs["end_exp"], gs["num_samples"])
-    else:
-        start = 10 ** gs["start_exp"]
-        end = 10 ** gs["end_exp"]
-        return np.linspace(start, end, gs["num_samples"])
+    start = 10 ** gs["start_exp"]
+    end = 10 ** gs["end_exp"]
+    return np.linspace(start, end, gs["num_samples"])
 
 
 class KernelPCAReducer:
+    """Reducer implementing KPCA with gamma selection."""
+
     def __init__(self, cfg: dict):
         self.cfg = cfg
         self.gamma = None
