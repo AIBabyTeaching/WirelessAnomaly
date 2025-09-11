@@ -13,6 +13,7 @@ def compute_tev(X: pd.DataFrame) -> Dict[str, float]:
     return {col: (v / total) for col, v in var.items()}
 
 
+
 def clustering_indices(X: pd.DataFrame, labels: pd.Series) -> Dict[str, float]:
     """Return basic clustering validation metrics."""
     return {
