@@ -13,6 +13,7 @@ provides the reference implementation for the paper
 It combines Elastic Net feature selection, kernel-optimised PCA and Isolation
 Forests, yielding **76.5%** total explained variance and an anomaly rate close
 to **5%** on the reference dataset.
+Zenodo DOI: 10.5281/zenodo.17096385
 
 ## Table of Contents
 - [Architecture](#architecture)
