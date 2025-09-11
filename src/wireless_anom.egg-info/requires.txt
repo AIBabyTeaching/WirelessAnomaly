@@ -2,6 +2,7 @@ numpy
 pandas
 scikit-learn
 matplotlib
+seaborn
 pyyaml
 typer
 rich
@@ -9,6 +10,7 @@ rich
 [dev]
 pytest
 mkdocs
+mkdocstrings[python]
 black
 ruff
 mypy

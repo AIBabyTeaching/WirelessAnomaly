@@ -24,6 +24,9 @@ src/wireless_anom/utils/logging.py
 src/wireless_anom/utils/paths.py
 src/wireless_anom/utils/seeds.py
 src/wireless_anom/utils/timing.py
+src/wireless_anom/viz/confusion.py
+src/wireless_anom/viz/contrib.py
+src/wireless_anom/viz/decision.py
 src/wireless_anom/viz/distributions.py
 src/wireless_anom/viz/scatter.py
 tests/test_cli.py

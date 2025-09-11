@@ -45,7 +45,7 @@ Generates all figures and tables under `outputs/`.
 ## Sample Outputs
 | Scatter | Distributions |
 | --- | --- |
-| ![scatter](Paper Figures/res0.png) | ![dist](Paper Figures/PC1_dist.png) |
+| ![scatter](Paper_Figures/res0.png) | ![dist](Paper_Figures/PC1_dist.png) |
 
 ### Classifier Accuracy
 
