@@ -1,0 +1,2 @@
+[console_scripts]
+wireless-anom = wireless_anom.cli.main:app

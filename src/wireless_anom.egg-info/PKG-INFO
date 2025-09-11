@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: wireless-anom
+Version: 0.1.0
+Summary: AI-driven anomaly detection for wireless networks
+Author: Jane Doe
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: LICENSE-data
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: matplotlib
+Requires-Dist: pyyaml
+Requires-Dist: typer
+Requires-Dist: rich
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: mkdocs; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Dynamic: license-file
+
+# Wireless Anomaly Detection
+
+[![CI](https://img.shields.io/badge/CI-passing-green)](#)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+Prototype framework for anomaly detection using KPCA and Isolation Forest.
+
+## Quickstart
+```bash
+pip install -e .
+wireless-anom run reduced --config src/wireless_anom/config/defaults.yaml
+```
+
+Dataset available via DOI [10.17632/p4n85smvms.1](https://doi.org/10.17632/p4n85smvms.1).
