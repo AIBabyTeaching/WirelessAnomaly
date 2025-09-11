@@ -140,7 +140,7 @@ Be respectful and considerate.
 Please open issues and pull requests. Run tests before submitting.
 
 ## Security
-For security issues, please email example@example.com.
+For security issues, please email ametwalli@aast.edu
 
 ## Citation
 Please cite the accompanying research paper when using this software.
